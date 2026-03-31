@@ -50,7 +50,7 @@ visu_funtopol_rec <- function(int_data,cover_data){
 
     # Network visualization and export to html
 
-    network <- visNetwork::visNetwork(nodes_list, edges_list) |
+    network <- visNetwork::visNetwork(nodes_list, edges_list) |>
       visNetwork::visIgraphLayout(layout = "layout_with_fr") |>
       visNetwork::visEdges(arrows ="to") |>
       visNetwork::visGroups(groupname = "Open", color = "#F0E442") |>
