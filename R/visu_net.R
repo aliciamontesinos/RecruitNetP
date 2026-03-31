@@ -51,25 +51,25 @@
 #' @examples
 #' # Unipartite network representation of a general recruitment network. Link width
 #' # corresponds to the scaled frequency of recruitment (*Fcr*):
-#' visu_net(mysite_com, mysite_cov, int_type="rec", weight="Fcr", mode="uni", scale_w=0.01)
+#' visu_net(Amoladeras_int, Amoladeras_cover, int_type="rec", weight="Fcr", mode="uni", scale_w=0.01)
 #'
 #' # Unipartite representation of a facilitation network. Link width corresponds to the
 #' # scaled *Ns* index:
-#' visu_net(mysite_com, mysite_cov, int_type="fac", weight="Ns", mode="uni", scale_w=5)
+#' visu_net(Amoladeras_int, Amoladeras_cover, int_type="fac", weight="Ns", mode="uni", scale_w=5)
 #'
 #' # Bipartite representation of a facilitation network. Link width corresponds to the
 #' # scaled *Ns* index. Canopy species are shown in the upper row and recruits in the lower
 #' # row of the graph:
-#' visu_net(mysite_com, mysite_cov, int_type="fac", weight="Ns", mode="bi", scale_w=5)
+#' visu_net(Amoladeras_int, Amoladeras_cover, int_type="fac", weight="Ns", mode="bi", scale_w=5)
 #'
 #' # Unipartite representation of a recruitment depression (*competition*) network. Link
 #' # width corresponds to the scaled *RII* index:
-#' visu_net(mysite_com, mysite_cov, int_type="comp", weight="RII", mode="uni", scale_w=5)
+#' visu_net(Amoladeras_int, Amoladeras_cover, int_type="comp", weight="RII", mode="uni", scale_w=5)
 #'
 #' # Bipartite representation of a recruitment depression (*competition*) network. Link
 #' # width corresponds to the scaled *RII* index. Canopy species are shown in the upper row
 #' # and recruits in the lower row of the graph:
-#' visu_net(mysite_com, mysite_cov, int_type="comp", weight="RII", mode="bi", scale_w=5)
+#' visu_net(Amoladeras_int, Amoladeras_cover, int_type="comp", weight="RII", mode="bi", scale_w=5)
 #'
 #'
 visu_net<-function(int_data,cover_data,int_type=c("rec","fac","comp"),
