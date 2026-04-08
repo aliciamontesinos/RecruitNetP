@@ -219,7 +219,7 @@ pre_associndex_UNISITE_UNI <- function(int_data = NULL) {
 
 # associndex_UNISITE_UNI()
 
-associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density=NULL) {
+associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
@@ -1106,7 +1106,7 @@ pre_associndex_UNISITE_BI_COMP <- function(int_data = NULL) {
 #remove line to remove a column named "Frequency" that does not exist
 
 associndex_UNISITE_BI <- function(int_data = NULL,
-                                  threshold_density = 100) {
+                                  threshold_density = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
@@ -1164,7 +1164,7 @@ associndex_UNISITE_BI <- function(int_data = NULL,
 #remove line to remove a column named "Frequency" that does not exist
 
 associndex_UNISITE_BI_COMP <- function(int_data = NULL,
-                                       threshold_density = 100) {
+                                       threshold_density = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
