@@ -39,22 +39,13 @@
 #' - *onlycanopy*: removes only canopy species lacking cover data, retaining recruit
 #' species even if they lack cover data.
 #'
-#' @param threshold_density **threshold_density**: indicates a threshold to retain only
-#' those interactions in which the observed density is below the threshold
-#' (i.e. Dcr < thr & Dro < thr). This is required to avoid the use of interactions
-#' based on very few recruits which may have occurred by chance under a very scarce
-#' canopy species. These cases will result in a large overestimation of Dcr, likely
-#' being spurious outlayers. If no threshold value is provided or it is set to NULL,
-#' the function estimates a threshold value based on recruitment density outliers
-#' according to a Weibull distribution: a value is an outlier if it is above the limit
-#' where less than 1 observation is expected. Explanation of its options:
-#' - A positive value. High values provide more chance to include potentially spurious
-#' interactions, unless such a high density is reliable based on the knowledge of the
-#' study system. A way to decide the threshold value would consist in identifying possible
-#' outlayers in the distribution of recruitment densities (*Dcr* and *Dro*).
-#' - NULL: use package **extremevalues** to find the density threshold value (*K*)
-#' above which, according to the Weibull distribution, less than 1 observation is
-#' expected given the number of observations in the sample.
+#' @param threshold_density **threshold_density**: possible values are:
+#' - The default option is *NULL* if no threshold is required.
+#' - A *positive number* if a particular threshold is to be used.
+#' - *"Weibull"* Can be used to exclude possible outlayers according to a Weibull
+#' distribution. The function uses package **extremevalues** to find the density
+#' threshold value (*K*) above which, according to the Weibull distribution, less
+#' than 1 observation is expected, given the number of observations in the sample.
 #'
 #' @returns a data frame with the following information for each canopy-recruit
 #' interaction with the following information:
@@ -84,7 +75,7 @@
 #' rm_sp_no_cover = "onlycanopy", threshold_density=NULL)
 #' associndex (Amoladeras_int, Amoladeras_cover, expand = "no",
 #' rm_sp_no_cover = "allsp", threshold_density=NULL)
-#' associndex (Amoladeras_int, Amoladeras_cover, expand = "yes",
+#' associndex (Amoladeras_int, Amoladeras_cover, expand = "no",
 #' rm_sp_no_cover = "onlycanopy", threshold_density=NULL)
 
 associndex<- function(int_data, cover_data, expand=c("yes","no"),
@@ -98,24 +89,35 @@ associndex<- function(int_data, cover_data, expand=c("yes","no"),
     differently. Data for recruitment in Open is required to calculate the indices."
     )
 
-  # Suggest a threshold value based on recruitment density outliers according
-  # to a Weibull distribution. Uses "extremevalues" package.
-  int_data_0<-comm_to_RN_UNI(int_data, cover_data)
-  db_inter_0 <- pre_associndex_UNISITE_UNI(int_data_0)
-  db_inter_0$Dcr <- db_inter_0$Fcr/db_inter_0$Ac
-  db_inter_0$Dro <- db_inter_0$Fro/db_inter_0$Ao
-  y <- rbind(db_inter_0$Dcr,db_inter_0$Dro)
-  y <- y[which(y>0)] # Zero densities are common, so we will check only for
-  #suspiciously high density values.
-  K <- extremevalues::getOutliers(y, method = "I", distribution = "weibull", rho=c(1,1)) # We
-  #consider that a value is an outlier if it is above the limit where less
-  #than 1 observation is expected.
+     int_data_0<-comm_to_RN_UNI(int_data, cover_data)
+     db_inter_0 <- pre_associndex_UNISITE_UNI(int_data_0)
+     db_inter_0$Dcr <- db_inter_0$Fcr/db_inter_0$Ac
+     db_inter_0$Dro <- db_inter_0$Fro/db_inter_0$Ao
+     # Dro has repeated values for each recruit species. The next line removes repeated
+     # values.
+     unique_Dro <- stats::aggregate(Dro ~ Recruit, data = db_inter_0[, c("Recruit", "Dro")], mean)
+     y <- c(db_inter_0$Dcr,unique_Dro$Dro)
 
   if(is.null(threshold_density)){
-    threshold_density = K$limit[[2]]
-    message("Based on Weibull distribution fitted to the observed values, the threshold density has been set to: ", threshold_density, ".")
+     # To effectively avoid the use of a threshold, we set its value to the maximum
+     # observed density.
+         threshold_density = max(y)
   }
 
+  if(threshold_density == "Weibull"){
+
+     # Suggest a threshold value based on recruitment density outliers according
+     # to a Weibull distribution. Uses "extremevalues" package.
+     # Zero densities are common, so we will check only for suspiciously high densities.
+     y <- y[which(y>0)]
+     K <- extremevalues::getOutliers(y, method = "I", distribution = "weibull", rho=c(1,1)) # We
+     #consider that a value is an outlier if it is above the limit where less
+     #than 1 observation is expected.
+
+    threshold_density = K$limit[[2]]
+    n_excluded <- length(K$iRight)
+    message("Based on Weibull distribution fitted to the observed values, the threshold density has been set to: ", threshold_density, ". ", n_excluded, " cases were excluded.")
+  }
 
   if(expand=="yes" & rm_sp_no_cover=="allsp"){int_type ="rec"}
   if(expand=="yes" & rm_sp_no_cover=="onlycanopy"){int_type ="comp"}
