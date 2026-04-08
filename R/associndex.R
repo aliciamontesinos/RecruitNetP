@@ -39,7 +39,7 @@
 #' - *onlycanopy*: removes only canopy species lacking cover data, retaining recruit
 #' species even if they lack cover data.
 #'
-#' @param threshold_density **threshold_density**: possible values are:
+#' @param threshold_density **threshold_density**. Possible values are:
 #' - The default option is *NULL* if no threshold is required.
 #' - A *positive number* if a particular threshold is to be used.
 #' - *"Weibull"* Can be used to exclude possible outlayers according to a Weibull
