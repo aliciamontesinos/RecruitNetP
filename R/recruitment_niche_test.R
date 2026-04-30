@@ -20,7 +20,7 @@
 #'
 recruitment_niche_test <- function(int_data,cover_data){
 
-  df <- associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy")
+  df <- associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy", threshold_density = NULL)
   sp_Fr <- stats::aggregate(Fcr ~ Recruit, data = df, FUN = sum)
   sp_Av <- stats::aggregate(Ac ~ Recruit, data = df, FUN = sum)
   sp_Fro <- stats::aggregate(Fro ~ Recruit, data = df, FUN = max)

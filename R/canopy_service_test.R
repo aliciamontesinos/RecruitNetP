@@ -18,9 +18,9 @@
 #' canopy_service_test(Amoladeras_int, Amoladeras_cover)
 #'
 
-canopy_service_test <- function(int_data,cover_data){
+canopy_service_test <- function(int_data, cover_data){
 
-  df<-associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy")
+  df<-associndex(int_data,cover_data, expand="yes", rm_sp_no_cover="onlycanopy", threshold_density = NULL)
   sp_Fc <- stats::aggregate(Fcr ~ Canopy, data = df, FUN = sum)
   sp_Ac <- stats::aggregate(Ac ~ Canopy, data = df, FUN = max)
   sp_Fro <- stats::aggregate(Fro ~ Canopy, data = df, FUN = sum)

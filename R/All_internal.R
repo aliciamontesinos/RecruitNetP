@@ -219,7 +219,7 @@ pre_associndex_UNISITE_UNI <- function(int_data = NULL) {
 
 # associndex_UNISITE_UNI()
 
-associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density=100) {
+associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
@@ -1106,7 +1106,7 @@ pre_associndex_UNISITE_BI_COMP <- function(int_data = NULL) {
 #remove line to remove a column named "Frequency" that does not exist
 
 associndex_UNISITE_BI <- function(int_data = NULL,
-                                  threshold_density = 100) {
+                                  threshold_density = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
@@ -1164,7 +1164,7 @@ associndex_UNISITE_BI <- function(int_data = NULL,
 #remove line to remove a column named "Frequency" that does not exist
 
 associndex_UNISITE_BI_COMP <- function(int_data = NULL,
-                                       threshold_density = 100) {
+                                       threshold_density = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
@@ -1370,7 +1370,7 @@ node_degrees_BI <- function(int_data,cover_data){
 
   matrix_Fcr<-RN_to_matrix(int_data,cover_data, int_type="fac", weight="Fcr")
   matrix_Pcr <-ifelse(matrix_Fcr>0,1,0)
-  p<-associndex(int_data,cover_data,expand="no",rm_sp_no_cover="onlycanopy" ,threshold_density = 100)
+  p<-associndex(int_data,cover_data,expand="no",rm_sp_no_cover="onlycanopy", threshold_density = NULL)
   node_abund <-unique(p[,c("Canopy","Ac")])
   node_abund <-node_abund[node_abund$Canopy%in%colnames(matrix_Fcr),]
   rownames(node_abund)<-node_abund$Canopy
@@ -1421,7 +1421,7 @@ node_degrees_BI_COMP <- function(int_data,cover_data){
 
   matrix_Fcr<-RN_to_matrix(int_data,cover_data, int_type="comp", weight="RII")
   matrix_Pcr <-ifelse(matrix_Fcr<0,1,0)
-  p<-associndex(int_data,cover_data,expand="yes",rm_sp_no_cover="onlycanopy" ,threshold_density = 100)
+  p<-associndex(int_data,cover_data,expand="yes",rm_sp_no_cover="onlycanopy", threshold_density = NULL)
   node_abund <-unique(p[,c("Canopy","Ac")])
   node_abund <-node_abund[node_abund$Canopy%in%colnames(matrix_Fcr),]
   rownames(node_abund)<-node_abund$Canopy
