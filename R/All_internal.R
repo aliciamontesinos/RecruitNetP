@@ -219,11 +219,11 @@ pre_associndex_UNISITE_UNI <- function(int_data = NULL) {
 
 # associndex_UNISITE_UNI()
 
-associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density = NULL) {
+associndex_UNISITE_UNI <- function(int_data = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
-  thr <- threshold_density
+
 
   # Assemble the data
   db_inter <- pre_associndex_UNISITE_UNI(int_data)
@@ -232,10 +232,7 @@ associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density = NULL) {
   db_inter$Dcr <- db_inter$Fcr/db_inter$Ac
   db_inter$Dro <- db_inter$Fro/db_inter$Ao
 
-  # Retain the interactions with estimated density below the threshold.
-  db_inter <- db_inter[which(db_inter$Dcr<thr & db_inter$Dro<thr), ]
-
-  #Obtain the maximum recruitment density for each recruit under the canopy species or in open.
+   #Obtain the maximum recruitment density for each recruit under the canopy species or in open.
   db_inter$Max_Recr_Density <- pmax(db_inter$Dcr,db_inter$Dro)
 
   db_inter <- utils::type.convert(db_inter, as.is = TRUE)
@@ -1105,12 +1102,9 @@ pre_associndex_UNISITE_BI_COMP <- function(int_data = NULL) {
 # associndex_p() use pre_associndex_non_expand instead of pre_associndex and
 #remove line to remove a column named "Frequency" that does not exist
 
-associndex_UNISITE_BI <- function(int_data = NULL,
-                                  threshold_density = NULL) {
+associndex_UNISITE_BI <- function(int_data = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
-
-  thr <- threshold_density
 
   # Assemble the data
   db_inter <- pre_associndex_UNISITE_BI(int_data)
@@ -1119,8 +1113,6 @@ associndex_UNISITE_BI <- function(int_data = NULL,
   db_inter$Dcr <- db_inter$Fcr/db_inter$Ac
   db_inter$Dro <- db_inter$Fro/db_inter$Ao
 
-  # Retain the interactions with estimated density below the threshold.
-  db_inter <- db_inter[which(db_inter$Dcr<thr & db_inter$Dro<thr), ]
 
   #Obtain the maximum recruitment density for each recruit under the canopy species or in open.
   db_inter$Max_Recr_Density <- pmax(db_inter$Dcr,db_inter$Dro)
@@ -1163,12 +1155,10 @@ associndex_UNISITE_BI <- function(int_data = NULL,
 # associndex_p() use pre_associndex_non_expand instead of pre_associndex and
 #remove line to remove a column named "Frequency" that does not exist
 
-associndex_UNISITE_BI_COMP <- function(int_data = NULL,
-                                       threshold_density = NULL) {
+associndex_UNISITE_BI_COMP <- function(int_data = NULL) {
 
   if (!"Open" %in% int_data$Canopy) stop("tests cannot be conducted because your data does not contain a node named Open or it is spelled differently.")
 
-  thr <- threshold_density
 
   # Assemble the data
   db_inter <- pre_associndex_UNISITE_BI_COMP(int_data)
@@ -1177,8 +1167,6 @@ associndex_UNISITE_BI_COMP <- function(int_data = NULL,
   db_inter$Dcr <- db_inter$Fcr/db_inter$Ac
   db_inter$Dro <- db_inter$Fro/db_inter$Ao
 
-  # Retain the interactions with estimated density below the threshold.
-  db_inter <- db_inter[which(db_inter$Dcr<thr & db_inter$Dro<thr), ]
 
   #Obtain the maximum recruitment density for each recruit under the canopy species or in open.
   db_inter$Max_Recr_Density <- pmax(db_inter$Dcr,db_inter$Dro)
