@@ -101,7 +101,7 @@ associndex<- function(int_data, cover_data, expand=c("yes","no"),
   if(is.null(threshold_density)){
      # To effectively avoid the use of a threshold, we set its value to the maximum
      # observed density.
-         threshold_density = max(y)
+         threshold_density = max(y)+1
   }
 
   if(threshold_density == "Weibull"){
