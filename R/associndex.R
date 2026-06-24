@@ -98,13 +98,19 @@ associndex<- function(int_data, cover_data, expand=c("yes","no"),
      unique_Dro <- stats::aggregate(Dro ~ Recruit, data = db_inter_0[, c("Recruit", "Dro")], mean)
      y <- c(db_inter_0$Dcr,unique_Dro$Dro)
 
-  if(is.null(threshold_density)){
-     # To effectively avoid the use of a threshold, we set its value to the maximum
-     # observed density.
-         threshold_density = max(y)
+  # if threshold_density is a number, use it directly
+  if (is.numeric(threshold_density)) {
+    stopifnot(threshold_density >= 0)
+    stopifnot(threshold_density <= (max(y) + 1))
   }
 
-  if(threshold_density == "Weibull"){
+  if (is.null(threshold_density)) {
+     # To effectively avoid the use of a threshold, we set its value to the maximum
+     # observed density.
+         threshold_density = max(y) + 1
+  }
+
+  if (threshold_density == "Weibull") {
 
      # Suggest a threshold value based on recruitment density outliers according
      # to a Weibull distribution. Uses "extremevalues" package.
