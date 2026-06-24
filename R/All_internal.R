@@ -234,11 +234,11 @@ associndex_UNISITE_UNI <- function(int_data = NULL, threshold_density = NULL) {
   # Retain the interactions with estimated density below the threshold.
   unique_Dro <- stats::aggregate(Dro ~ Recruit, data = db_inter[, c("Recruit", "Dro")], mean)
   y <- c(db_inter$Dcr,unique_Dro$Dro)
-  threshold_density = max(y)+1
-  thr <- threshold_density
+#  threshold_density = max(y)+1
+#  thr <- threshold_density
   
   
-  db_inter <- db_inter[which(db_inter$Dcr<thr & db_inter$Dro<thr), ]
+  db_inter <- db_inter[which(db_inter$Dcr<threshold_density & db_inter$Dro<threshold_density), ]
 
   #Obtain the maximum recruitment density for each recruit under the canopy species or in open.
   db_inter$Max_Recr_Density <- pmax(db_inter$Dcr,db_inter$Dro)
@@ -1126,10 +1126,10 @@ associndex_UNISITE_BI <- function(int_data = NULL,
   # Retain the interactions with estimated density below the threshold.
   unique_Dro <- stats::aggregate(Dro ~ Recruit, data = db_inter[, c("Recruit", "Dro")], mean)
   y <- c(db_inter$Dcr,unique_Dro$Dro)
-  threshold_density = max(y)+1
-  thr <- threshold_density
+#  threshold_density = max(y)+1
+#  thr <- threshold_density
   
-  db_inter <- db_inter[which(db_inter$Dcr<thr & db_inter$Dro<thr), ]
+  db_inter <- db_inter[which(db_inter$Dcr<threshold_density & db_inter$Dro<threshold_density), ]
 
   #Obtain the maximum recruitment density for each recruit under the canopy species or in open.
   db_inter$Max_Recr_Density <- pmax(db_inter$Dcr,db_inter$Dro)
@@ -1188,12 +1188,12 @@ associndex_UNISITE_BI_COMP <- function(int_data = NULL,
   # Retain the interactions with estimated density below the threshold.
   unique_Dro <- stats::aggregate(Dro ~ Recruit, data = db_inter[, c("Recruit", "Dro")], mean)
   y <- c(db_inter$Dcr,unique_Dro$Dro)
-  threshold_density = max(y)+1
-  thr <- threshold_density
+#  threshold_density = max(y)+1
+#  thr <- threshold_density
   
   
   
-  db_inter <- db_inter[which(db_inter$Dcr<thr & db_inter$Dro<thr), ]
+  db_inter <- db_inter[which(db_inter$Dcr<threshold_density & db_inter$Dro<threshold_density), ]
 
   #Obtain the maximum recruitment density for each recruit under the canopy species or in open.
   db_inter$Max_Recr_Density <- pmax(db_inter$Dcr,db_inter$Dro)
