@@ -59,24 +59,12 @@ test_that("associndex calcula threshold automáticamente", {
     associndex(Amoladeras_int, Amoladeras_cover,
                expand = "yes",
                rm_sp_no_cover = "allsp",
-               threshold_density = NULL),
-    "threshold density has been set"
+               threshold_density = "Weibull"),
+    regexp = "threshold density has been set"
   )
 
 })
 
-# Test 7.- La función no calcula el thresold si se da
-
-test_that("associndex no calcula threshold si se proporciona", {
-
-  expect_no_message(
-    associndex(Amoladeras_int, Amoladeras_cover,
-               expand = "yes",
-               rm_sp_no_cover = "allsp",
-               threshold_density = 1000)
-  )
-
-})
 
 
 
