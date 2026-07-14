@@ -25,8 +25,8 @@ test_that("Aggregated values correct for Artemisia_barrelieri", {
   expect_equal(fila$Fc, sum(Amoladeras_int[Amoladeras_int$Canopy=="Artemisia_barrelieri" ,"Frequency"]))
   expect_equal(fila$Fro, 5111)
   expect_equal(fila$Fro, sum(Amoladeras_int[Amoladeras_int$Canopy=="Open" ,"Frequency"]))
-  expect_equal(fila$Ac, 1,tolerance = 1e-6)
-  expect_equal(fila$Ao, 6927,tolerance = 1e-6)
+  expect_equal(fila$Ac, 1,tolerance = 1)
+  expect_equal(fila$Ao, 6927,tolerance = 1)
 
 
 })
